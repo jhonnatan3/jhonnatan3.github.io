@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="padding: 0; margin-left:15.118110236px; font-size: 14px">
+
+<div class="container">
+
+<div id="center" style=" -webkit-transform: translate(-50%,-50%); transform: translate(-50%,-50%);position:relative;top: 50%; left: 50%; width: 100%">
+<h4 class="carregando">  </h4>
+<div class="progress">
+
+<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+</div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+	var h = $(window).height()
+		hdiv = $(".container").height();
+	
+	$(document).ready(function(){
+		$(".container").css({
+			height: h+"px"
+		});
+	});
+	
+	$(window).resize(function(){
+		var nh = $(window).height();
+		if (nh != h && nh > hdiv){
+			$(".container").css({ height: nh+"px"});
+		}else {
+			$(".container").css({ height: "auto"});
+		}
+		h = nh;
+	});	
+	
+	setTimeout(progressBarF, 1300);
+	var carregando = ["Subindo Aplicação", "Estabelecendo conexão HTTP", "Estabilizando a rede", "Estabelecendo comunicação com Servidor", "Conectando ao banco de dados", "Carregando Arquivos", "Carregando Módulos", "Criando Interface do usuário", "Verificando a integridade do sistema", "Preenchendo a barra de carregar", "Carregando Dependências", "Importando configurações", "Exportando preferências", "Carregando dados"];
+	var aux = 0;
+	function progressBarF(){
+		$(".carregando").text(carregando[aux]);
+		var progressBar = $(".progress-bar");
+		id = setInterval(addProgress, 200);
+		function addProgress() {
+			var qnt = 1 + Math.floor(Math.random() * (55 + (aux * 15)));
+			var width = progressBar.width() + qnt;
+			progressBar.width(width);
+			if(progressBar.width() >= $(".progress").width()){
+				clearInterval(id);
+				$(".progress-bar").css({width: 0+"px"});
+				to = setTimeout(progressBarF, 1000);
+				aux++;
+				if(aux >= carregando.length){
+					clearInterval(id);
+					clearTimeout(to);
+					$(".carregando").hide();
+					$(".progress").hide();
+					var txtFim = "<h1>Parabéns por aguardar</h1>"+
+					"<br>"+
+					"<h2>Porém não há nada nessa página</h2>"+
+					"<br>"+
+					"<h2>Visite minha página no Github para ter acesso às páginas com conteúdo</h2>"+
+					"<h2><a href='http://www.github.com/jhonnatanmesquita'>Jhonnatan M Vieira - Github</a></h2>";
+					$("#center").append(txtFim);
+				}
+			}		
+	}}
+	
+	
+	</script>
+</body>
+
+
+</html>
